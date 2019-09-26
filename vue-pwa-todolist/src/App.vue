@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <TodoList/>
   </div>
 </template>
 
 <style lang="scss">
   @import "./assets/styling/styles.scss";
 </style>
+<script lang="ts">
+  import Vue from 'vue';
+  import TodoList from './components/TodoList.vue';
+  export default ({
+    name: 'app',
+    components: {
+      TodoList,
+    },
+  });
+  </script>
