@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">header</div>
+  <div class="page-header">header</div>
 </template>
 <script lang="ts">
   export default ({

@@ -1,10 +1,11 @@
 <template>
   <div class="page-todo">
-    To do app
-    <Header/>
-    <Form/>
-    <List/>
-    <Footer/>
+    <div class="container">
+      <Header/>
+      <Form/>
+      <List/>
+      <Footer/>
+    </div>
   </div>
 </template>
 <script lang="ts">

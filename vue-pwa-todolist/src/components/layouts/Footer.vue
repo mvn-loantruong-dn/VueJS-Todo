@@ -1,5 +1,5 @@
 <template>
-  <div class="app-footer">Footer</div>
+  <div class="page-footer">Footer</div>
 </template>
 <script lang="ts">
   export default ({
