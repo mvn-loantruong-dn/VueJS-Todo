@@ -1,0 +1,40 @@
+.form-section {
+  @include pxRem(min-height, 200);
+  position: relative;
+  .add-icon {
+    @include pxRem(top, -50);
+    @include pxRem(width, 80);
+    @include pxRem(height, 80);
+    @include pxRem(font-size, 50);
+    @include pxRem(line-height, 50);
+    background: map-get($color, white);
+    color: map-get($color, primary);
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    z-index: 999;
+    left: 50%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+  .form-add-task {
+    @include pxRem(min-height, 200);
+    @include pxRem(top, -20);
+    @include pxRem(border-radius, 5);
+    @include pxRem(padding, 50 30 0);
+    width: 100%;
+    margin: 0 auto;
+    background: map-get($color, white);
+    position: absolute;
+    z-index: 99;
+  }
+}
+.todo-list {
+  .todo-item {
+    @include pxRem(padding, 15);
+    @include pxRem(margin, 10 0);
+    @include pxRem(border-radius, 5);
+    background: map-get($color, white);
+    box-shadow: 0 #{f-pxRem(4)} #{f-pxRem(9)} 0 scale-color($color: map-get($color, black), $lightness: 90%)
+  }
+}

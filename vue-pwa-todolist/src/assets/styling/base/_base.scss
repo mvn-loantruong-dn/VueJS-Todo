@@ -1,3 +1,13 @@
 * {
   box-sizing: border-box;
 }
+body {
+  @include font-smoothing(antialiased);
+  @include pxRem(font-size, map-get($font-size, md));
+  @include pxRem(padding-top, 100);
+  background: map-get($color, background);
+  color: map-get($color, text);
+  font-family: $font-family-default;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  line-height: 1.5em;
+}

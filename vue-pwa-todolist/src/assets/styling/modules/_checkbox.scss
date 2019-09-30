@@ -1,0 +1,70 @@
+
+// hide the checkbox
+.hidden-box {
+  opacity: 0;
+  display: none;
+}
+.check-label {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.check-label-box {
+  @include pxRem(width, 22);
+  @include pxRem(height, 22);
+  display: flex;
+  align-self: center;
+  position: relative;
+  border: 1px solid map-get($color, text);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.check-label-text {
+  @include pxRem(padding, 0 15);
+  display: flex;
+  align-self: center;
+  position: relative;
+  cursor: pointer;
+  &:after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 1px;
+    background: scale-color($color: map-get($color, text),  $lightness: 50%);
+    position: absolute;
+    top: 50%;
+    left: 7.5%;
+    transform: translateY(-50%);
+    transition: width 300ms ease-in-out;
+  }
+}
+// the magic
+.hidden-box:checked {
+  + .check-label {
+    .check-label-box {
+      background-color: map-get($color, primary);
+      border: 1px solid map-get($color, primary);
+      &:after {
+        @include pxRem(top, 1);
+        @include pxRem(left, 6);
+        @include pxRem(width, 6);
+        @include pxRem(height, 12);
+        content: "";
+        display: block;
+        position: absolute;
+        border: solid map-get($color, white);
+        border-width: 0 #{f-pxRem(2)} #{f-pxRem(2)} 0;
+        transform: rotate(45deg);
+      }
+    }
+    .check-label-text {
+      color: scale-color($color: map-get($color, text),  $lightness: 50%);
+      &:after {
+        width: 85%;
+      }
+    }
+  }
+}

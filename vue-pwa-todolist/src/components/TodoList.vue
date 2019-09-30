@@ -1,11 +1,11 @@
 <template>
   <div class="page-todo">
+    <Header/>
     <div class="container">
-      <Header/>
       <Form/>
       <List/>
-      <Footer/>
     </div>
+    <Footer/>
   </div>
 </template>
 <script lang="ts">
@@ -24,4 +24,4 @@
       List,
     },
   });
-  </script>
+</script>

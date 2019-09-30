@@ -1,0 +1,32 @@
+button, .btn {
+  @include pxRem(padding, 10 30);
+  @include pxRem(line-height, 21);
+  @include pxRem(font-size, map-get($font-size, md));
+  @include pxRem(border-radius, 35);
+  cursor: pointer;
+  width: 100%;
+  transition: all 500ms ease;
+  color: map-get($color, text);
+  background: map-get($color, white);
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  display: inline-block;
+  border: none;
+  &:disabled {
+    color: map-get($color, white);
+    cursor: not-allowed;
+    opacity: 0.3;
+    &:hover {
+      background: map-get($color, primary);
+    }
+  }
+}
+.btn-primary {
+  @include pxRem(min-width, 180);
+  background-color: map-get($color, primary);
+  border: 1px solid map-get($color, primary);
+  color: map-get($color, white);
+}

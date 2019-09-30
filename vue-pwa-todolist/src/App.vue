@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <TodoList/>
+    <!-- <HelloWorld/> -->
   </div>
 </template>
 
@@ -10,10 +11,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import TodoList from './components/TodoList.vue';
+  import HelloWorld from './components/HelloWorld.vue';
   export default ({
     name: 'app',
     components: {
       TodoList,
+      // HelloWorld,
     },
   });
-  </script>
+</script>
