@@ -1,6 +1,6 @@
 .page-header {
   background: map-get($color, primary);
-  @include pxRem(height, 100);
+  @include pxRem(height, 120);
   left: 0;
   position: fixed;
   right: 0;
@@ -21,9 +21,4 @@
   .logo {
     @include pxRem(height, 80);
   }
-}
-.header-left,
-.header-right {
-  display: flex;
-  align-items: center;
 }
