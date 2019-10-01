@@ -45,8 +45,8 @@
 .hidden-box:checked {
   + .check-label {
     .check-label-box {
-      background-color: map-get($color, primary);
-      border: 1px solid map-get($color, primary);
+      background-color: map-get($color, green);
+      border: 1px solid map-get($color, green);
       &:after {
         @include pxRem(top, 1);
         @include pxRem(left, 6);

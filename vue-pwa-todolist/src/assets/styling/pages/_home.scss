@@ -1,41 +1,14 @@
-.form-section {
-  @include pxRem(min-height, 200);
-  .form-add-task {
-    @include pxRem(min-height, 200);
-    @include pxRem(top, 100);
-    @include pxRem(border-radius, 5);
-    @include pxRem(padding, 55 30 0);
-    width: 100%;
-    margin: 0 auto;
-    left: 0;
-    background: map-get($color, white);
-    position: fixed;
-    z-index: 99;
-    .add-icon {
-      @include pxRem(top, -25);
-      @include pxRem(width, 80);
-      @include pxRem(height, 80);
-      @include pxRem(font-size, 50);
-      @include pxRem(line-height, 50);
-      background: map-get($color, white);
-      color: map-get($color, primary);
-      display: inline-block;
-      position: absolute;
-      text-align: center;
-      z-index: 999;
-      left: 50%;
-      border-radius: 50%;
-      transform: translateX(-50%);
-    }
-  }
-}
-.todo-list-wrap {
-  @include pxRem(padding, 30 0);
+.todo-list-section {
+  @include pxRem(padding, 20 0);
   .todo-item {
     @include pxRem(padding, 15);
     @include pxRem(margin, 10 0);
     @include pxRem(border-radius, 5);
     background: map-get($color, white);
-    box-shadow: 0 #{f-pxRem(4)} #{f-pxRem(9)} 0 scale-color($color: map-get($color, black), $lightness: 90%)
+    box-shadow: 0 #{f-pxRem(4)} #{f-pxRem(9)} 0 scale-color($color: map-get($color, black), $lightness: 90%);
+    border-left: #{f-pxRem(4)} solid map-get($color, green);
+    &.task-complete {
+      border-left: #{f-pxRem(4)} solid map-get($color, yellow);
+    }
   }
 }

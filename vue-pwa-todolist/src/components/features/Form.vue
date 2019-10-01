@@ -1,11 +1,10 @@
 <template>
   <div class="form-section">
     <form class="form-add-task">
-      <div class="add-icon">+</div>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Add new task"/>
+        <span class="input-group-addon">+</span>
+        <input type="text" class="form-input" placeholder="Add a task..."/>
       </div>
-      <button type="submit" class="btn btn-primary">Add new task</button>
     </form>
   </div>
 </template>

@@ -1,6 +1,6 @@
 .page-header {
+  @include pxRem(height, 75);
   background: map-get($color, primary);
-  @include pxRem(height, 120);
   left: 0;
   position: fixed;
   right: 0;
@@ -11,14 +11,5 @@
   .container {
     height: 100%;
     position: relative;
-  }
-}
-.header-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  .logo {
-    @include pxRem(height, 80);
   }
 }
