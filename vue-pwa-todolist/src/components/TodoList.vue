@@ -1,10 +1,12 @@
 <template>
   <div class="page-todo">
     <Header/>
-    <div class="container">
-      <Form/>
-      <List/>
-    </div>
+    <main class="page-main">
+      <div class="container">
+        <Form/>
+        <List/>
+      </div>
+    </main>
     <Footer/>
   </div>
 </template>

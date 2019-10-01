@@ -4,7 +4,7 @@
 body {
   @include font-smoothing(antialiased);
   @include pxRem(font-size, map-get($font-size, md));
-  @include pxRem(padding-top, 100);
+  @include pxRem(padding-top, 80);
   background: map-get($color, background);
   color: map-get($color, text);
   font-family: $font-family-default;
@@ -44,4 +44,8 @@ a {
 }
 img {
   max-width: 100%;
+}
+.page-main {
+  @include pxRem(padding-top, 30);
+  @include pxRem(padding-bottom, 60);
 }
