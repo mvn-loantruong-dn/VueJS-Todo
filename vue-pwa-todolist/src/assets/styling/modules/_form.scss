@@ -1,0 +1,53 @@
+input,
+textarea {
+  outline: none;
+  margin: 0;
+  border: none;
+  width: 100%;
+  resize: none;
+}
+.form-group {
+  position: relative;
+  .input-group-addon + .form-input {
+    @include pxRem(padding-left, 50);
+  }
+}
+.input-group-addon {
+  @include pxRem(width, 50);
+  @include pxRem(font-size, 35);
+  @include pxRem(line-height, 40);
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  border: 0;
+  padding: 0;
+  height: 100%;
+  color: map-get($color, primary);
+}
+.form-input,
+.form-control,
+.input-search,
+.form-textarea {
+  @include pxRem(padding, 15);
+  @include pxRem(border-radius, 2);
+  @include pxRem(font-size, map-get($font-size, md));
+  transition: all 0.5s ease;
+  border: 1px solid map-get($color, border);
+  box-shadow: 16 0 0 0.2rem rgba(0, 123, 255, .25);
+  &:focus {
+    box-shadow: none;
+    border: 1px solid map-get($color, primary);
+  }
+  &::placeholder {
+    color:rgba(map-get($color, text), 0.3);
+  }
+  ~ .error-msg {
+    @include pxRem(font-size, map-get($font-size, sm));
+    color: map-get($color, red);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: none;
+  }
+}

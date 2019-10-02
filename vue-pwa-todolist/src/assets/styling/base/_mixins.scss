@@ -1,5 +1,7 @@
-// === RESPOND ABOVE ===
-// @include respond-above(small) {}
+/**
+  * RESPONSIVE AREA
+  */
+
 @mixin respond-above($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     $breakpoint-value: map-get($breakpoints, $breakpoint);
@@ -11,8 +13,6 @@
   }
 }
 
-// === RESPOND BELOW ===
-// @include respond-below(small) {}
 @mixin respond-below($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     $breakpoint-value: map-get($breakpoints, $breakpoint);
@@ -24,8 +24,6 @@
   }
 }
 
-// === RESPOND BETWEEN ===
-// @include respond-between(small, medium);
 @mixin respond-between($lower, $upper) {
   @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
     $lower-breakpoint: map-get($breakpoints, $lower);
@@ -40,5 +38,83 @@
     @if (map-has-key($breakpoints, $upper) == false) {
       @warn 'Your upper breakpoint was invalid: #{$upper}.';
     }
+  }
+}
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+@mixin font-icon($icon) {
+  content: map-get($font-icon, $icon);
+  font-family: map-get($font-family, icon);
+  -webkit-font-smoothing: antialiased;
+}
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+// === CONVERT PXREM ===
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@function convertRootPxToEm($value) {
+  // check for null:
+  @if($value == null) {
+    @return $value;
+  }
+  // assume em:
+  @if (unitless($value) or unit($value) == em) {
+    @return 0em + $value;
+  }
+  @else {
+    @return 0em + strip-units($value)/16;
+  }
+}
+@function convertPxToRem($px) {
+  @return 0rem + strip-units($px)/16;
+}
+
+@mixin pxRem($property, $values) {
+  // Create a couple of empty lists as output buffers:
+  $px-values: ();
+  $rem-values: ();
+
+  // Ensure $values is a list.
+  @if type-of($values) != 'list' {
+    $values: join((), $values);
+  }
+
+  // Loop through the $values list:
+  @each $value in $values {
+    @if type-of($value) == number and (unitless($value) or unit($value) == px) {
+    $px-values: join($px-values, 0px + ($value));
+      $rem-values: join($rem-values, convertPxToRem($value));
+    }
+    @else {
+    // no conversion:
+    $px-values: join($px-values, $value);
+    $rem-values: join($rem-values, $value);
+    }
+  }
+
+  #{$property}: $px-values;
+
+  // don't add media query if it's not needed:
+  @if $px-values != $rem-values {
+    // @media only all {
+      #{$property}: $rem-values;
+    // }
   }
 }

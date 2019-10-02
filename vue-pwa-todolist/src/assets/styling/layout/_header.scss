@@ -1,0 +1,15 @@
+.page-header {
+  @include pxRem(height, 75);
+  background: map-get($color, primary);
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: map-get($color, white);
+  .container {
+    height: 100%;
+    position: relative;
+  }
+}
