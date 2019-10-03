@@ -7,9 +7,9 @@
     display: flex;
     background: map-get($color, white);
     box-shadow: 0 #{f-pxRem(4)} #{f-pxRem(9)} 0 scale-color($color: map-get($color, black), $lightness: 90%);
-    border-left: #{f-pxRem(4)} solid map-get($color, green);
+    border-left: #{f-pxRem(4)} solid map-get($color, yellow);
     &.task-complete {
-      border-left: #{f-pxRem(4)} solid map-get($color, yellow);
+      border-left: #{f-pxRem(4)} solid map-get($color, green);
     }
     .delete-icon {
       margin-left: auto;

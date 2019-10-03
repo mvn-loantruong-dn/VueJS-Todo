@@ -1,5 +1,4 @@
 .page-footer {
-  @include pxRem(padding, 10 20);
   background: map-get($color, white);
   position: fixed;
   z-index: 2;
@@ -7,11 +6,31 @@
   width: 100%;
   height: auto;
   border-top: 1px solid map-get($color, border);
-  .todos-footer-toolbar {
+  .todos-footer-filter {
     @extend %flex-between;
     flex-grow: 3;
-    .toolbar-btn {
-      @include pxRem(padding, 10 0);
+  }
+  .filter-item {
+    @include pxRem(padding, 10 0);
+    border-top: #{f-pxRem(2)} solid transparent;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    &.active {
+      border-top: #{f-pxRem(2)} solid map-get($color, primary);
+      color: map-get($color, primary);
+    }
+    [class^="icon-"] {
+      @include pxRem(font-size, 30);
+      display: block;
+      font-weight: bold;
+    }
+  }
+}
+@include respond-below("medium") {
+  .page-footer {
+    .filter-text {
+      display: none;
     }
   }
 }

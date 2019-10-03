@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item">
+  <div class="todo-item" :class="{'task-complete': completed}">
     <div class="task">
       <input type="checkbox"
         class="hidden-box"
@@ -14,7 +14,7 @@
         </span>
       </label>
     </div>
-    <div class="delete-icon" @click="deletedTodo(todo)">x</div>
+    <div class="delete-icon" @click="deletedTodo(todo)"><i class="icon-trash"></i></div>
   </div>
 </template>
 <script lang='ts'>

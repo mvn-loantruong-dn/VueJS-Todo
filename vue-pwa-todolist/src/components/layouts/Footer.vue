@@ -1,14 +1,35 @@
 <template>
   <div class="page-footer">
-    <ul class="todos-footer-toolbar">
-      <li class="toolbar-item"><button class="toolbar-btn active"><i class="i-clean-filter"></i> All Tasks </button></li>
-      <li class="toolbar-item"><button class="toolbar-btn"><i class="i-tasks"></i> Active </button></li>
-      <li class="toolbar-item"><button class="toolbar-btn"><i class="i-tasks-done"></i> Completed </button></li>
-    </ul>
+    <div class="container">
+      <ul class="todos-footer-filter">
+        <li class="filter-item" :click="filterTodos('all')">
+          <i class="icon-all"></i>
+          <span class="filter-text">All Tasks</span>
+        </li>
+        <li class="filter-item" :click="filterTodos('cctive')">
+          <i class="icon-planning"></i>
+          <span class="filter-text">Active</span>
+        </li>
+        <li class="filter-item" :click="filterTodos('complete')">
+          <i class="icon-completed"></i>
+          <span class="filter-text">Completed</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script lang="ts">
   export default ({
     name: 'Footer',
+    data() {
+      return {
+        visibility: 'all',
+      };
+    },
+    methods: {
+      filterTodos(filter: any) {
+        this.visibility = '';
+      },
+    },
   });
 </script>
