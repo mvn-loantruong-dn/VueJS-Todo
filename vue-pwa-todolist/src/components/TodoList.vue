@@ -5,15 +5,17 @@
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
         <div class="todo-list-section">
-          <todo-item
-            v-for="(todo, index) in todos"
-            :key="todo.id"
-            :todo="todo"
-            :index="index"
-            :completed="todo.completed"
-            @removeTodo="removeTodo"
-            @changedCompleted="changedCompleted">
-          </todo-item>
+          <transition-group name="fade">
+            <todo-item
+              v-for="(todo, index) in todos"
+              :key="todo.id"
+              :todo="todo"
+              :index="index"
+              :completed="todo.completed"
+              @removeTodo="removeTodo"
+              @changedCompleted="changedCompleted">
+            </todo-item>
+          </transition-group>
         </div>
       </div>
     </main>
