@@ -5,7 +5,7 @@
   bottom: 0;
   width: 100%;
   height: auto;
-  border-top: 1px solid map-get($color, border);
+  box-shadow: 0 #{f-pxRem(-5)} #{f-pxRem(5)} #{f-pxRem(-5)} scale-color($color: map-get($color, text), $lightness: 80%,);
   .todos-footer-filter {
     @extend %flex-between;
     flex-grow: 3;
@@ -19,7 +19,7 @@
     text-align: center;
     transition: color .5s linear;
     [class^="icon-"] {
-      @include pxRem(font-size, 26);
+      @include pxRem(font-size, 22);
       display: block;
       font-weight: bold;
     }
@@ -49,7 +49,7 @@
 @include respond-below("medium") {
   .page-footer {
     .filter-text {
-      @include pxRem(font-size, 10);
+      @include pxRem(font-size, 9);
     }
   }
 }

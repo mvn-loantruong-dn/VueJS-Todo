@@ -9,3 +9,11 @@
   transform: scale(0);
   opacity: 0;
 }
+.no-task-enter-active,
+.no-task-leave-active {
+  transition: opacity .5s;
+}
+.no-task-enter,
+.no-task-leave-to {
+  opacity: 0;
+}

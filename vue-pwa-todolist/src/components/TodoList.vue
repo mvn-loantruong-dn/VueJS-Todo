@@ -16,10 +16,17 @@
               @changedCompleted="changedCompleted">
             </todo-item>
           </transition-group>
+          <transition name="fade">
+            <div class="no-task" v-if="!todos.length">
+              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
+              <h2 class="font-bold">No tasks</h2>
+              <h4>You have no task to do.</h4>
+            </div>
+          </transition>
         </div>
       </div>
     </main>
-    <Footer />
+    <Footer @filterTodos="filterTodos"></Footer>
   </div>
 </template>
 <script lang='ts'>
@@ -42,13 +49,13 @@ export default {
       todos: [
         {
           id: 1,
-          title: 'title',
-          completed: true,
+          title: 'Create, assign and share task',
+          completed: false,
         },
         {
           id: 2,
-          title: 'title',
-          completed: false,
+          title: 'Create and assign projects',
+          completed: true,
         },
       ],
     };
@@ -71,6 +78,9 @@ export default {
     changedCompleted(todo: any) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos.splice(todoIndex, 1, todo);
+    },
+    filterTodos(filter: any) {
+      // tbd
     },
   },
 };

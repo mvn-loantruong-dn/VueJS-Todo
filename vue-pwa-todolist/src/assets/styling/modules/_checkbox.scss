@@ -36,7 +36,7 @@
     background: scale-color($color: map-get($color, text),  $lightness: 50%);
     position: absolute;
     top: 50%;
-    left: 15%;
+    left: 7.5%;
     transform: translateY(-50%);
     transition: width 300ms ease-in-out;
   }
@@ -63,7 +63,7 @@
     .check-label-text {
       color: scale-color($color: map-get($color, text),  $lightness: 50%);
       &:after {
-        width: 65%;
+        width: 85%;
       }
     }
   }

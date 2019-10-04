@@ -2,15 +2,15 @@
   <div class="page-footer">
     <div class="container">
       <ul class="todos-footer-filter">
-        <li class="filter-item" @click="filterTodos('all')" :class="{active:isActive == 'all'}">
+        <li class="filter-item" @click="filterTodos('all')" :class="{active:visibility == 'all'}">
           <i class="icon-all"></i>
           <span class="filter-text">All Tasks</span>
         </li>
-        <li class="filter-item" @click="filterTodos('active')" :class="{active:isActive == 'active'}">
+        <li class="filter-item" @click="filterTodos('active')" :class="{active:visibility == 'active'}">
           <i class="icon-planning"></i>
           <span class="filter-text">Active</span>
         </li>
-        <li class="filter-item" @click="filterTodos('complete')" :class="{active:isActive == 'complete'}">
+        <li class="filter-item" @click="filterTodos('complete')" :class="{active:visibility == 'complete'}">
           <i class="icon-completed"></i>
           <span class="filter-text">Completed</span>
         </li>
@@ -24,12 +24,13 @@
     name: 'Footer',
     data() {
       return {
-        isActive: 'all',
+        visibility: 'all',
       };
     },
     methods: {
       filterTodos(filter) {
-        this.isActive = filter;
+        this.visibility = filter;
+        this.$emit('filterTodos', filter);
       },
     },
   });

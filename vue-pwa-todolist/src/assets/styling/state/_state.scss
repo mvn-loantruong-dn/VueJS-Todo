@@ -3,3 +3,12 @@
   height: 100%;
   object-fit: cover;
 }
+.primary-text {
+  color: map-get($color, primary);
+}
+.secondary-text {
+  color: map-get($color, secondary);
+}
+.font-bold {
+  font-weight: bold;
+}
