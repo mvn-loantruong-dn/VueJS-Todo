@@ -9,28 +9,47 @@
   .todos-footer-filter {
     @extend %flex-between;
     flex-grow: 3;
+    position: relative;
   }
   .filter-item {
     @include pxRem(padding, 10 0);
-    border-top: #{f-pxRem(2)} solid transparent;
+    cursor: pointer;
+    position: relative;
     width: 100%;
     text-align: center;
-    cursor: pointer;
-    &.active {
-      border-top: #{f-pxRem(2)} solid map-get($color, primary);
-      color: map-get($color, primary);
-    }
+    transition: color .5s linear;
     [class^="icon-"] {
-      @include pxRem(font-size, 30);
+      @include pxRem(font-size, 26);
       display: block;
       font-weight: bold;
     }
+    &.active {
+      color: map-get($color, primary);
+    }
+    &:nth-of-type(1).active ~ .slide {
+      left: calc((100% / 3) * 0);
+    }
+    &:nth-of-type(2).active ~ .slide {
+      left: calc((100% / 3) * 1);
+    }
+    &:nth-of-type(3).active ~ .slide {
+      left: calc((100% / 3) * 2);
+    }
+  }
+  .slide {
+    @include pxRem(height, 2);
+    background: map-get($color, primary);
+    width: calc(100% / 3);
+    position: absolute;
+    left: 0;
+    top: -1px;
+    transition: left 0.3s ease-out;
   }
 }
 @include respond-below("medium") {
   .page-footer {
     .filter-text {
-      display: none;
+      @include pxRem(font-size, 10);
     }
   }
 }
