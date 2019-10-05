@@ -15,7 +15,7 @@ textarea {
 .input-group-addon {
   @include pxRem(width, 50);
   @include pxRem(font-size, 35);
-  @include pxRem(line-height, 40);
+  @include pxRem(line-height, 35);
   cursor: pointer;
   position: absolute;
   left: 0;
@@ -29,7 +29,7 @@ textarea {
 .form-control,
 .input-search,
 .form-textarea {
-  @include pxRem(padding, 15);
+  @include pxRem(padding, 12 15);
   @include pxRem(border-radius, 2);
   @include pxRem(font-size, map-get($font-size, md));
   transition: all 0.5s ease;

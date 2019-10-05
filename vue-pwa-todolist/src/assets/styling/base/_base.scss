@@ -18,6 +18,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
 }
+h2 {
+  @include pxRem(font-size, 24);
+}
 h3 {
   @include pxRem(font-size, map-get($font-size, lg));
 }

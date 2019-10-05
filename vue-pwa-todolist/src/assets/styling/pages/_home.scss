@@ -1,5 +1,16 @@
 .todo-list-section {
   @include pxRem(padding, 20 0);
+  .no-task {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+      @include pxRem(width, 100);
+      @include pxRem(margin-bottom, 10);
+    }
+  }
   .todo-item {
     @include pxRem(padding, 15);
     @include pxRem(margin, 10 0);
@@ -7,9 +18,9 @@
     display: flex;
     background: map-get($color, white);
     box-shadow: 0 #{f-pxRem(4)} #{f-pxRem(9)} 0 scale-color($color: map-get($color, black), $lightness: 90%);
-    border-left: #{f-pxRem(4)} solid map-get($color, green);
+    border-left: #{f-pxRem(4)} solid map-get($color, yellow);
     &.task-complete {
-      border-left: #{f-pxRem(4)} solid map-get($color, yellow);
+      border-left: #{f-pxRem(4)} solid map-get($color, green);
     }
     .delete-icon {
       margin-left: auto;

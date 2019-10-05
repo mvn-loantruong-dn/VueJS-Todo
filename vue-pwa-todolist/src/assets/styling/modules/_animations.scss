@@ -1,0 +1,19 @@
+.fade-move,
+.fade-leave-active,
+.fade-enter-active {
+  transition: 1s cubic-bezier(.87,-.41,.19,1.44);
+  transform: scale(1)
+}
+.fade-enter,
+.fade-leave-active {
+  transform: scale(0);
+  opacity: 0;
+}
+.no-task-enter-active,
+.no-task-leave-active {
+  transition: opacity .5s;
+}
+.no-task-enter,
+.no-task-leave-to {
+  opacity: 0;
+}

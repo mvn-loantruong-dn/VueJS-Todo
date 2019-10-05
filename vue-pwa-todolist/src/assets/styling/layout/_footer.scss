@@ -1,17 +1,55 @@
 .page-footer {
-  @include pxRem(padding, 10 20);
   background: map-get($color, white);
   position: fixed;
   z-index: 2;
   bottom: 0;
   width: 100%;
   height: auto;
-  border-top: 1px solid map-get($color, border);
-  .todos-footer-toolbar {
+  box-shadow: 0 #{f-pxRem(-5)} #{f-pxRem(5)} #{f-pxRem(-5)} scale-color($color: map-get($color, text), $lightness: 80%,);
+  .todos-footer-filter {
     @extend %flex-between;
     flex-grow: 3;
-    .toolbar-btn {
-      @include pxRem(padding, 10 0);
+    position: relative;
+  }
+  .filter-item {
+    @include pxRem(padding, 10 0);
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transition: color .5s linear;
+    [class^="icon-"] {
+      @include pxRem(font-size, 22);
+      display: block;
+      font-weight: bold;
+    }
+    &.active {
+      color: map-get($color, primary);
+    }
+    &:nth-of-type(1).active ~ .slide {
+      left: calc((100% / 3) * 0);
+    }
+    &:nth-of-type(2).active ~ .slide {
+      left: calc((100% / 3) * 1);
+    }
+    &:nth-of-type(3).active ~ .slide {
+      left: calc((100% / 3) * 2);
+    }
+  }
+  .slide {
+    @include pxRem(height, 2);
+    background: map-get($color, primary);
+    width: calc(100% / 3);
+    position: absolute;
+    left: 0;
+    top: -1px;
+    transition: left 0.3s ease-out;
+  }
+}
+@include respond-below("medium") {
+  .page-footer {
+    .filter-text {
+      @include pxRem(font-size, 9);
     }
   }
 }
