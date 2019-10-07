@@ -3,7 +3,7 @@
     <div class="container flex-between">
       <div class="header-left">
         <h3>Hello Brenda!</h3>
-        <h5>You have {{numTodo}} tasks</h5>
+        <h5>You have {{numTodo}} <span v-text="numTodo > 1 ? 'tasks' : 'task'"></span> left</h5>
       </div>
       <div class="header-center">
       </div>
