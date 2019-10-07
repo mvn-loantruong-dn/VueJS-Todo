@@ -70,6 +70,7 @@ export default {
           completed: true,
         },
       ],
+      type: 'all',
     };
   },
   methods: {
@@ -88,12 +89,16 @@ export default {
       const todoIndex = this.tmpTodos.indexOf(todo);
       this.tmpTodos.splice(todoIndex, 1);
       this.todos = this.tmpTodos.map((item) => item);
+      this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
       const todoIndex = this.tmpTodos.findIndex(obj => obj.id == todo.id);
       this.tmpTodos[todoIndex].completed = !todo.completed;
+      this.filterTodos(this.type);
+      // this.todos = this.tmpTodos.map((item) => item);
     },
     filterTodos(filter: any) {
+      this.type = filter;
       switch (filter){
         case 'active':
           this.todos = this.tmpTodos.filter((item) => item.completed == false);
