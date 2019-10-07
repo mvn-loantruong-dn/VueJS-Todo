@@ -83,7 +83,6 @@ export default {
         completed: false,
       });
       this.todos = this.tmpTodos.map((item) => item);
-      console.log(this.tmpTodos, this.todos);
     },
     removeTodo(todo: any) {
       const todoIndex = this.tmpTodos.indexOf(todo);
@@ -91,9 +90,8 @@ export default {
       this.todos = this.tmpTodos.map((item) => item);
     },
     changedCompleted(todo: any) {
-      const todoIndex = this.tmpTodos.indexOf(todo);
-      this.tmpTodos.splice(todoIndex, 1, todo);
-      this.todos = this.tmpTodos.map((item) => item);
+      const todoIndex = this.tmpTodos.findIndex(obj => obj.id == todo.id);
+      this.tmpTodos[todoIndex].completed = !todo.completed;
     },
     filterTodos(filter: any) {
       switch (filter){
