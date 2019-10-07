@@ -3,7 +3,7 @@
     <div class="container flex-between">
       <div class="header-left">
         <h3>Hello Brenda!</h3>
-        <h5>Today you have 5 tasks</h5>
+        <h5>You have {{numTodo}} tasks</h5>
       </div>
       <div class="header-center">
       </div>
@@ -18,5 +18,6 @@
 <script lang="ts">
   export default ({
     name: 'Header',
+    props: ['numTodo'],
   });
 </script>

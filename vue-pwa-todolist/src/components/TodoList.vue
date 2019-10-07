@@ -1,6 +1,6 @@
 <template>
   <div class="page-todo">
-    <Header />
+    <Header :numTodo="numTodo" />
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
@@ -59,6 +59,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    numTodo() {
+      return this.todos.filter((count: any) => !count.completed).length;
+    },
   },
   methods: {
     addTodo(todo: any) {
