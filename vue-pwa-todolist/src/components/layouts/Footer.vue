@@ -38,7 +38,7 @@
         this.$emit('filterTodos', filter);
       },
       removeCompleted(filter) {
-        this.visibility = filter;
+        this.visibility = 'all';
         this.$emit('removeCompleted', filter);
       },
     },

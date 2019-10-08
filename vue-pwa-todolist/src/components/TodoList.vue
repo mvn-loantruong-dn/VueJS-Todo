@@ -108,7 +108,7 @@ export default {
       this.todos = this.todoClone;
       this.todos = this.todoClone.filter((item) => item.completed === false);
       this.todoClone = this.todos;
-      this.filterTodos(this.type);
+      this.filterTodos('all');
     },
   },
 };
