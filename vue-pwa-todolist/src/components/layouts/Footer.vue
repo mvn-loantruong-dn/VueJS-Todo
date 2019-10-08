@@ -1,6 +1,6 @@
 <template>
   <div class="page-footer">
-    <div class="container">
+    <!-- <div class="container"> -->
       <ul class="todos-footer-filter">
         <li class="filter-item" @click="filterTodos('all')" :class="{active:visibility == 'all'}">
           <i class="icon-all"></i>
@@ -20,7 +20,7 @@
         </li>
         <li class="slide"></li>
       </ul>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 <script lang="ts">
