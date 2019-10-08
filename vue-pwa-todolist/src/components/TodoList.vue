@@ -20,7 +20,7 @@
             <div class="no-task" v-if="!todos.length">
               <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
               <h2 class="font-bold">No tasks</h2>
-              <h4>You have no task to do.</h4>
+              <h4>You have no task</h4>
             </div>
           </transition>
         </div>
@@ -46,36 +46,17 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: 'Create, assign and share task',
-          completed: false,
-        },
-        {
-          id: 2,
-          title: 'Create and assign projects',
-          completed: true,
-        },
-      ],
-      tmpTodos: [
-        {
-          id: 1,
-          title: 'Create, assign and share task',
-          completed: false,
-        },
-        {
-          id: 2,
-          title: 'Create and assign projects',
-          completed: true,
-        },
-      ],
+      todos: [],
+      todoClone: [],
       type: 'all',
     };
   },
+  mounted() {
+    return this.todoClone = this.todos;
+  },
   computed: {
     numTodo() {
-      return this.todos.filter((count: any) => !count.completed).length;
+      return this.todoClone.filter((item: any) => !item.completed).length;
     },
   },
   methods: {
@@ -83,36 +64,39 @@ export default {
       if (todo.trim() === '') {
         return;
       }
-      this.tmpTodos.unshift({
+      this.todos.unshift({
         id: Math.random(),
         title: todo,
         completed: false,
       });
-      this.todos = this.tmpTodos.map((item) => item);
+      this.todoClone = this.todos;
     },
     removeTodo(todo: any) {
-      const todoIndex = this.tmpTodos.indexOf(todo);
-      this.tmpTodos.splice(todoIndex, 1);
-      this.todos = this.tmpTodos.map((item) => item);
+      this.todos = this.todoClone;
+      this.todos = this.todos.filter((item: any) => item.id !== todo.id);
+      this.todoClone = this.todos;
       this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
-      const todoIndex = this.tmpTodos.findIndex(obj => obj.id == todo.id);
-      this.tmpTodos[todoIndex].completed = !todo.completed;
-      this.filterTodos(this.type);
-      // this.todos = this.tmpTodos.map((item) => item);
+      this.todos.map((item: any) => {
+        if (item.id === todo.id) {
+          item.completed = !item.completed;
+          return item;
+        }
+      });
+      this.todoClone = this.todos;
     },
     filterTodos(filter: any) {
       this.type = filter;
-      switch (filter){
+      switch (filter) {
         case 'active':
-          this.todos = this.tmpTodos.filter((item) => item.completed == false);
+          this.todos = this.todoClone.filter((item) => item.completed === false);
           break;
         case 'complete':
-          this.todos = this.tmpTodos.filter((item) => item.completed == true);
+          this.todos = this.todoClone.filter((item) => item.completed === true);
           break;
         default:
-          this.todos = this.tmpTodos.map((item) => item);
+          this.todos = this.todoClone.map((item) => item);
       }
     },
   },

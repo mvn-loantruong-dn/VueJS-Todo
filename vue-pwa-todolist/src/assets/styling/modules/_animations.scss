@@ -1,7 +1,7 @@
 .fade-move,
 .fade-leave-active,
 .fade-enter-active {
-  transition: 1s cubic-bezier(.87,-.41,.19,1.44);
+  transition: 0.5s cubic-bezier(.87,-.41,.19,1.44);
   transform: scale(1)
 }
 .fade-enter,
