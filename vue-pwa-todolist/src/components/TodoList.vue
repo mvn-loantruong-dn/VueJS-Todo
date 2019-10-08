@@ -58,6 +58,19 @@ export default {
           completed: true,
         },
       ],
+      tmpTodos: [
+        {
+          id: 1,
+          title: 'Create, assign and share task',
+          completed: false,
+        },
+        {
+          id: 2,
+          title: 'Create and assign projects',
+          completed: true,
+        },
+      ],
+      type: 'all',
     };
   },
   computed: {
@@ -70,22 +83,37 @@ export default {
       if (todo.trim() === '') {
         return;
       }
-      this.todos.unshift({
+      this.tmpTodos.unshift({
         id: Math.random(),
         title: todo,
         completed: false,
       });
+      this.todos = this.tmpTodos.map((item) => item);
     },
     removeTodo(todo: any) {
-      const todoIndex = this.todos.indexOf(todo);
-      this.todos.splice(todoIndex, 1);
+      const todoIndex = this.tmpTodos.indexOf(todo);
+      this.tmpTodos.splice(todoIndex, 1);
+      this.todos = this.tmpTodos.map((item) => item);
+      this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
-      const todoIndex = this.todos.indexOf(todo);
-      this.todos.splice(todoIndex, 1, todo);
+      const todoIndex = this.tmpTodos.findIndex(obj => obj.id == todo.id);
+      this.tmpTodos[todoIndex].completed = !todo.completed;
+      this.filterTodos(this.type);
+      // this.todos = this.tmpTodos.map((item) => item);
     },
     filterTodos(filter: any) {
-      // tbd
+      this.type = filter;
+      switch (filter){
+        case 'active':
+          this.todos = this.tmpTodos.filter((item) => item.completed == false);
+          break;
+        case 'complete':
+          this.todos = this.tmpTodos.filter((item) => item.completed == true);
+          break;
+        default:
+          this.todos = this.tmpTodos.map((item) => item);
+      }
     },
   },
 };
