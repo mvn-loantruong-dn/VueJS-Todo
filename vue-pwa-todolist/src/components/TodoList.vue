@@ -1,6 +1,6 @@
 <template>
   <div class="page-todo">
-    <Header :numTodo="numTodo" />
+    <Header :activeTodo="activeTodo" />
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
@@ -26,7 +26,7 @@
         </div>
       </div>
     </main>
-    <Footer @filterTodos="filterTodos"></Footer>
+    <Footer @filterTodos="filterTodos" @removeCompleted="removeCompleted" :completedTodo="completedTodo"></Footer>
   </div>
 </template>
 <script lang='ts'>
@@ -55,12 +55,16 @@ export default {
     return this.todoClone = this.todos;
   },
   computed: {
-    numTodo() {
+    activeTodo() {
       return this.todoClone.filter((item: any) => !item.completed).length;
+    },
+    completedTodo() {
+      return this.todoClone.filter((item: any) => item.completed).length;
     },
   },
   methods: {
     addTodo(todo: any) {
+      this.todos = this.todoClone;
       if (todo.trim() === '') {
         return;
       }
@@ -70,6 +74,7 @@ export default {
         completed: false,
       });
       this.todoClone = this.todos;
+      this.filterTodos(this.type);
     },
     removeTodo(todo: any) {
       this.todos = this.todoClone;
@@ -98,6 +103,12 @@ export default {
         default:
           this.todos = this.todoClone.map((item) => item);
       }
+    },
+    removeCompleted() {
+      this.todos = this.todoClone;
+      this.todos = this.todoClone.filter((item) => item.completed === false);
+      this.todoClone = this.todos;
+      this.filterTodos(this.type);
     },
   },
 };

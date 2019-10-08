@@ -14,6 +14,10 @@
           <i class="icon-completed"></i>
           <span class="filter-text">Completed</span>
         </li>
+        <li class="filter-item" @click="removeCompleted('clear')" :class="{active:visibility == 'clear', disabled:!completedTodo}">
+          <i class="icon-remove"></i>
+          <span class="filter-text">Clear completed</span>
+        </li>
         <li class="slide"></li>
       </ul>
     </div>
@@ -22,6 +26,7 @@
 <script lang="ts">
   export default ({
     name: 'Footer',
+    props: ['completedTodo'],
     data() {
       return {
         visibility: 'all',
@@ -31,6 +36,10 @@
       filterTodos(filter) {
         this.visibility = filter;
         this.$emit('filterTodos', filter);
+      },
+      removeCompleted(filter) {
+        this.visibility = filter;
+        this.$emit('removeCompleted', filter);
       },
     },
   });
