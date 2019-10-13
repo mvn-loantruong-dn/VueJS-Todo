@@ -47,18 +47,6 @@ export default {
   data() {
     return {
       todos: [],
-      tmpTodos: [
-        {
-          id: 1,
-          title: 'Create, assign and share task',
-          completed: false,
-        },
-        {
-          id: 2,
-          title: 'Create and assign projects',
-          completed: true,
-        },
-      ],
       type: 'all',
     };
   },
@@ -67,41 +55,44 @@ export default {
       return JSON.parse(localStorage.getItem('todos'));
     },
     addTodo(todo: any) {
+      var tmp = this.getTodoList();
       if (todo.trim() === '') {
         return;
       }
-      this.todos.unshift({
+      tmp.unshift({
         id: Math.random(),
         title: todo,
         completed: false,
       });
-      localStorage.setItem('todos', JSON.stringify(this.todos));
+      localStorage.setItem('todos', JSON.stringify(tmp));
+      this.filterTodos(this.type);
     },
     removeTodo(todo: any) {
+      var tmp = this.getTodoList();
       const todoIndex = this.todos.indexOf(todo);
-      this.todos.splice(todoIndex, 1);
-      // this.todos = this.tmpTodos.map((item) => item);
-      localStorage.setItem('todos', JSON.stringify(this.todos));
-      // this.filterTodos(this.type);
+      tmp.splice(todoIndex, 1);
+      localStorage.setItem('todos', JSON.stringify(tmp));
+      this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
+      var tmp = this.getTodoList();
       const todoIndex = this.todos.findIndex(obj => obj.id == todo.id);
-      this.todos[todoIndex].completed = !todo.completed;
-      localStorage.setItem('todos', JSON.stringify(this.todos));
-      // this.filterTodos(this.type);
-      // this.todos = this.tmpTodos.map((item) => item);
+      tmp[todoIndex].completed = !todo.completed;
+      localStorage.setItem('todos', JSON.stringify(tmp));
+      this.filterTodos(this.type);
     },
     filterTodos(filter: any) {
       this.type = filter;
+      var tmp = this.getTodoList();
       switch (filter){
         case 'active':
-          this.todos = this.tmpTodos.filter((item) => item.completed == false);
+          this.todos = tmp.filter((item) => item.completed == false);
           break;
         case 'complete':
-          this.todos = this.tmpTodos.filter((item) => item.completed == true);
+          this.todos = tmp.filter((item) => item.completed == true);
           break;
         default:
-          this.todos = this.tmpTodos.map((item) => item);
+          this.todos = tmp.map((item) => item);
       }
     },
   },
