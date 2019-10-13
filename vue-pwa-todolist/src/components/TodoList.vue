@@ -46,18 +46,7 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: 'Create, assign and share task',
-          completed: false,
-        },
-        {
-          id: 2,
-          title: 'Create and assign projects',
-          completed: true,
-        },
-      ],
+      todos: [],
       tmpTodos: [
         {
           id: 1,
@@ -74,27 +63,32 @@ export default {
     };
   },
   methods: {
+    getTodoList() {
+      return JSON.parse(localStorage.getItem('todos'));
+    },
     addTodo(todo: any) {
       if (todo.trim() === '') {
         return;
       }
-      this.tmpTodos.unshift({
+      this.todos.unshift({
         id: Math.random(),
         title: todo,
         completed: false,
       });
-      this.todos = this.tmpTodos.map((item) => item);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     },
     removeTodo(todo: any) {
-      const todoIndex = this.tmpTodos.indexOf(todo);
-      this.tmpTodos.splice(todoIndex, 1);
-      this.todos = this.tmpTodos.map((item) => item);
-      this.filterTodos(this.type);
+      const todoIndex = this.todos.indexOf(todo);
+      this.todos.splice(todoIndex, 1);
+      // this.todos = this.tmpTodos.map((item) => item);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+      // this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
-      const todoIndex = this.tmpTodos.findIndex(obj => obj.id == todo.id);
-      this.tmpTodos[todoIndex].completed = !todo.completed;
-      this.filterTodos(this.type);
+      const todoIndex = this.todos.findIndex(obj => obj.id == todo.id);
+      this.todos[todoIndex].completed = !todo.completed;
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+      // this.filterTodos(this.type);
       // this.todos = this.tmpTodos.map((item) => item);
     },
     filterTodos(filter: any) {
@@ -110,6 +104,9 @@ export default {
           this.todos = this.tmpTodos.map((item) => item);
       }
     },
+  },
+  beforeMount() {
+    this.todos = this.getTodoList();
   },
 };
 </script>
