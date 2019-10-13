@@ -1,6 +1,6 @@
 <template>
   <div class="page-todo">
-    <Header />
+    <Header :activeTodo="getActiveTodo" />
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
@@ -20,13 +20,13 @@
             <div class="no-task" v-if="!todos.length">
               <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
               <h2 class="font-bold">No tasks</h2>
-              <h4>You have no task to do.</h4>
+              <h4>You have no task</h4>
             </div>
           </transition>
         </div>
       </div>
     </main>
-    <Footer @filterTodos="filterTodos"></Footer>
+    <Footer @filterTodos="filterTodos" @removeCompleted="removeCompleted" :completedTodo="getCompletedTodo"></Footer>
   </div>
 </template>
 <script lang='ts'>
@@ -47,57 +47,75 @@ export default {
   data() {
     return {
       todos: [],
+      todoClone: [],
       type: 'all',
     };
+  },
+  mounted() {
+    this.todos = this.getTodoList();
+  },
+  computed: {
+    getActiveTodo() {
+      return this.todoClone.filter((item: any) => !item.completed).length;
+    },
+    getCompletedTodo() {
+      return this.todoClone.filter((item: any) => item.completed).length;
+    },
   },
   methods: {
     getTodoList() {
       return JSON.parse(localStorage.getItem('todos'));
     },
     addTodo(todo: any) {
-      var tmp = this.getTodoList();
+      this.todoClone = this.getTodoList();
       if (todo.trim() === '') {
         return;
       }
-      tmp.unshift({
+      this.todoClone.unshift({
         id: Math.random(),
         title: todo,
         completed: false,
       });
-      localStorage.setItem('todos', JSON.stringify(tmp));
+      localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
     removeTodo(todo: any) {
-      var tmp = this.getTodoList();
-      const todoIndex = this.todos.indexOf(todo);
-      tmp.splice(todoIndex, 1);
-      localStorage.setItem('todos', JSON.stringify(tmp));
+      this.todoClone = this.getTodoList();
+      this.todoClone = this.todoClone.filter((item: any) => item.id !== todo.id);
+      localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
-      var tmp = this.getTodoList();
-      const todoIndex = this.todos.findIndex(obj => obj.id == todo.id);
-      tmp[todoIndex].completed = !todo.completed;
-      localStorage.setItem('todos', JSON.stringify(tmp));
+      this.todoClone = this.getTodoList();
+      this.todoClone.map((item: any) => {
+        if (item.id === todo.id) {
+          item.completed = !item.completed;
+          return item;
+        }
+      });
+      localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
     filterTodos(filter: any) {
       this.type = filter;
-      var tmp = this.getTodoList();
-      switch (filter){
+      this.todoClone = this.getTodoList();
+      switch (filter) {
         case 'active':
-          this.todos = tmp.filter((item) => item.completed == false);
+          this.todos = this.todoClone.filter((item) => item.completed === false);
           break;
         case 'complete':
-          this.todos = tmp.filter((item) => item.completed == true);
+          this.todos = this.todoClone.filter((item) => item.completed === true);
           break;
         default:
-          this.todos = tmp.map((item) => item);
+          this.todos = this.todoClone.map((item) => item);
       }
     },
-  },
-  beforeMount() {
-    this.todos = this.getTodoList();
+    removeCompleted() {
+      this.todoClone = this.getTodoList();
+      this.todoClone = this.todoClone.filter((item) => item.completed === false);
+      localStorage.setItem('todos', JSON.stringify(this.todoClone));
+      this.filterTodos('all');
+    },
   },
 };
 </script>

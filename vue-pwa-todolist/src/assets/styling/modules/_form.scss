@@ -9,11 +9,11 @@ textarea {
 .form-group {
   position: relative;
   .input-group-addon + .form-input {
-    @include pxRem(padding-left, 50);
+    @include pxRem(padding-left, 45);
   }
 }
 .input-group-addon {
-  @include pxRem(width, 50);
+  @include pxRem(width, 45);
   @include pxRem(font-size, 35);
   @include pxRem(line-height, 35);
   cursor: pointer;
@@ -30,7 +30,7 @@ textarea {
 .input-search,
 .form-textarea {
   @include pxRem(padding, 12 15);
-  @include pxRem(border-radius, 2);
+  @include pxRem(border-radius, 5);
   @include pxRem(font-size, map-get($font-size, md));
   transition: all 0.5s ease;
   border: 1px solid map-get($color, border);
