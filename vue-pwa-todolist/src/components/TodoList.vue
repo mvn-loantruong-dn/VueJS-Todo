@@ -52,7 +52,7 @@ export default {
     };
   },
   mounted() {
-    this.todos = this.getTodoList() || [];
+    this.todos = this.todoClone = this.getTodoList() || [];
   },
   computed: {
     getActiveTodo() {
