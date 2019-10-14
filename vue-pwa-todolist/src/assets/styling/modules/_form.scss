@@ -8,22 +8,23 @@ textarea {
 }
 .form-group {
   position: relative;
-  .input-group-addon + .form-input {
-    @include pxRem(padding-left, 45);
-  }
 }
 .input-group-addon {
   @include pxRem(width, 45);
-  @include pxRem(font-size, 35);
-  @include pxRem(line-height, 35);
+  @include pxRem(font-size, 28);
+  @include pxRem(border-radius, 0);
+  @include pxRem(border-top-right-radius, 5);
+  @include pxRem(border-bottom-right-radius, 5);
   cursor: pointer;
   position: absolute;
-  left: 0;
-  text-align: center;
-  border: 0;
+  right: 0;
   padding: 0;
+  text-align: center;
   height: 100%;
-  color: map-get($color, primary);
+  font-weight: normal;
+  border: 1px solid map-get($color, primary);
+  background: map-get($color, primary);
+  color: map-get($color, white)
 }
 .form-input,
 .form-control,
