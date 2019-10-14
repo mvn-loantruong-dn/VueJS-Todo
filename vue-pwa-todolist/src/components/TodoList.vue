@@ -52,7 +52,7 @@ export default {
     };
   },
   mounted() {
-    this.todos = this.getTodoList();
+    this.todos = this.getTodoList() || [];
   },
   computed: {
     getActiveTodo() {
@@ -67,7 +67,7 @@ export default {
       return JSON.parse(localStorage.getItem('todos'));
     },
     addTodo(todo: any) {
-      this.todoClone = this.getTodoList();
+      this.todoClone = this.getTodoList() || [];
       if (todo.trim() === '') {
         return;
       }
@@ -80,13 +80,13 @@ export default {
       this.filterTodos(this.type);
     },
     removeTodo(todo: any) {
-      this.todoClone = this.getTodoList();
+      this.todoClone = this.getTodoList() || [];
       this.todoClone = this.todoClone.filter((item: any) => item.id !== todo.id);
       localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
     changedCompleted(todo: any) {
-      this.todoClone = this.getTodoList();
+      this.todoClone = this.getTodoList() || [];
       this.todoClone.map((item: any) => {
         if (item.id === todo.id) {
           item.completed = !item.completed;
@@ -98,7 +98,7 @@ export default {
     },
     filterTodos(filter: any) {
       this.type = filter;
-      this.todoClone = this.getTodoList();
+      this.todoClone = this.getTodoList() || [];
       switch (filter) {
         case 'active':
           this.todos = this.todoClone.filter((item) => item.completed === false);
