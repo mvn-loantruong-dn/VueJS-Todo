@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <TodoList/>
-    <!-- <HelloWorld/> -->
+    <LoadingScreen :isLoading="isLoading" />
+    <div v-if="!isLoading">
+      <TodoList/>
+    </div>
   </div>
 </template>
 
@@ -11,12 +13,22 @@
 <script lang="ts">
   import Vue from 'vue';
   import TodoList from './components/TodoList.vue';
-  import HelloWorld from './components/HelloWorld.vue';
+  import LoadingScreen from './components/shared/LoadingScreen.vue';
   export default ({
     name: 'app',
+    data() {
+      return {
+        isLoading: true,
+      };
+    },
+    mounted() {
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 3000);
+    },
     components: {
       TodoList,
-      // HelloWorld,
+      LoadingScreen,
     },
   });
 </script>

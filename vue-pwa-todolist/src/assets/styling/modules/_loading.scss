@@ -1,0 +1,41 @@
+.loader {
+  @extend %flex-centered;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 1s;
+}
+.fadeout {
+  animation: fadeout 0.5s forwards;
+}
+$color-4: #eead68;
+$color-3: #eec368;
+$color-2: #eece68;
+$color-1: #eed968;
+$color-5: #ee8c68;
+$loader-color: $color-1, $color-2, $color-3, $color-4, $color-5;
+@for $i from 1 through 5 {
+  .loader-#{$i} {
+    @include anim();
+    @include pxRem(width, 20);
+    @include pxRem(height, 20);
+    @include pxRem(margin, 8);
+    @extend %flex-centered;
+    background: map-get($color, primary);
+    border-radius: 50%;
+    background-color: nth($loader-color, $i);
+    &:before {
+      @include pxRem(width, 20);
+      @include pxRem(height, 20);
+      content: '';
+      border-radius: 50%;
+      background-color: nth($loader-color, $i);
+      opacity: 0.7;
+      animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+      animation-delay: 200ms * $i;
+      transition: 0.5s all ease;
+      transform: scale(1);
+    }
+  }
+}
