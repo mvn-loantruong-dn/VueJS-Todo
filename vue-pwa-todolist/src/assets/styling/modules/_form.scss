@@ -23,6 +23,7 @@ textarea {
   height: 100%;
   font-weight: normal;
   border: 1px solid map-get($color, primary);
+  border-bottom: #{f-pxRem(2)} solid  map-get($color, green-light);
   background: map-get($color, primary);
   color: map-get($color, white)
 }
