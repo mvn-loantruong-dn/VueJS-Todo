@@ -3,7 +3,7 @@
     <form class="form-add-task" @submit.prevent="addTodo()">
       <div class="form-group">
         <input type="text" v-model="newTodo" class="form-input" placeholder="Add a task..."/>
-        <button type="submit" class="input-group-addon" @click="addTodo()">+</button>
+        <button type="submit" class="input-group-addon" @click="addTodo()"><i class="icon-add"></i></button>
       </div>
     </form>
   </div>

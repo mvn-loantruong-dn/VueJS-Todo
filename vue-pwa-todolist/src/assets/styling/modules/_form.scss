@@ -11,7 +11,7 @@ textarea {
 }
 .input-group-addon {
   @include pxRem(width, 45);
-  @include pxRem(font-size, 28);
+  @include pxRem(font-size, 24);
   @include pxRem(border-radius, 0);
   @include pxRem(border-top-right-radius, 5);
   @include pxRem(border-bottom-right-radius, 5);
