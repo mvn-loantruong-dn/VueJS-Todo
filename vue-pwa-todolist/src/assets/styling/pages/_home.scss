@@ -7,8 +7,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     img {
-      @include pxRem(width, 100);
-      @include pxRem(margin-bottom, 10);
+      @include pxRem(width, 50);
     }
   }
   .todo-item {

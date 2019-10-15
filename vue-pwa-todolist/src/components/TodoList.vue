@@ -19,8 +19,8 @@
           <transition name="fade">
             <div class="no-task" v-if="!todos.length">
               <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
-              <h2 class="font-bold">No tasks</h2>
-              <h4>You have no task</h4>
+              <h3 class="font-bold">No tasks</h3>
+              <h5>You have no task</h5>
             </div>
           </transition>
         </div>
