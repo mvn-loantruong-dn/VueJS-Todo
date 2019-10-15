@@ -15,7 +15,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
   export default ({
     name: 'Header',
     props: ['activeTodo'],

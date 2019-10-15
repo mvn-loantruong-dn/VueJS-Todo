@@ -5,6 +5,13 @@
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
         <div class="todo-list-section">
+          <transition name="fade">
+            <div class="no-task" v-if="!todos.length">
+              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
+              <h3 class="font-bold">No tasks</h3>
+              <h5>You have no task</h5>
+            </div>
+          </transition>
           <transition-group name="fade">
             <todo-item
               v-for="(todo, index) in todos"
@@ -16,20 +23,13 @@
               @changedCompleted="changedCompleted">
             </todo-item>
           </transition-group>
-          <transition name="fade">
-            <div class="no-task" v-if="!todos.length">
-              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
-              <h2 class="font-bold">No tasks</h2>
-              <h4>You have no task</h4>
-            </div>
-          </transition>
         </div>
       </div>
     </main>
     <Footer @filterTodos="filterTodos" @removeCompleted="removeCompleted" :completedTodo="getCompletedTodo"></Footer>
   </div>
 </template>
-<script lang='ts'>
+<script>
 import Vue from 'vue';
 import Header from './layouts/Header.vue';
 import Footer from './layouts/Footer.vue';
@@ -56,17 +56,17 @@ export default {
   },
   computed: {
     getActiveTodo() {
-      return this.todoClone.filter((item: any) => !item.completed).length;
+      return this.todoClone.filter((item) => !item.completed).length;
     },
     getCompletedTodo() {
-      return this.todoClone.filter((item: any) => item.completed).length;
+      return this.todoClone.filter((item) => item.completed).length;
     },
   },
   methods: {
     getTodoList() {
       return JSON.parse(localStorage.getItem('todos'));
     },
-    addTodo(todo: any) {
+    addTodo(todo) {
       this.todoClone = this.getTodoList() || [];
       if (todo.trim() === '') {
         return;
@@ -79,15 +79,15 @@ export default {
       localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
-    removeTodo(todo: any) {
+    removeTodo(todo) {
       this.todoClone = this.getTodoList() || [];
-      this.todoClone = this.todoClone.filter((item: any) => item.id !== todo.id);
+      this.todoClone = this.todoClone.filter((item) => item.id !== todo.id);
       localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
-    changedCompleted(todo: any) {
+    changedCompleted(todo) {
       this.todoClone = this.getTodoList() || [];
-      this.todoClone.map((item: any) => {
+      this.todoClone.map((item) => {
         if (item.id === todo.id) {
           item.completed = !item.completed;
           return item;
@@ -96,7 +96,7 @@ export default {
       localStorage.setItem('todos', JSON.stringify(this.todoClone));
       this.filterTodos(this.type);
     },
-    filterTodos(filter: any) {
+    filterTodos(filter) {
       this.type = filter;
       this.todoClone = this.getTodoList() || [];
       switch (filter) {
