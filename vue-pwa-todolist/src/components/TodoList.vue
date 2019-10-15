@@ -5,6 +5,13 @@
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
         <div class="todo-list-section">
+          <transition name="fade">
+            <div class="no-task" v-if="!todos.length">
+              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
+              <h3 class="font-bold">No tasks</h3>
+              <h5>You have no task</h5>
+            </div>
+          </transition>
           <transition-group name="fade">
             <todo-item
               v-for="(todo, index) in todos"
@@ -16,13 +23,6 @@
               @changedCompleted="changedCompleted">
             </todo-item>
           </transition-group>
-          <transition name="fade">
-            <div class="no-task" v-if="!todos.length">
-              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
-              <h3 class="font-bold">No tasks</h3>
-              <h5>You have no task</h5>
-            </div>
-          </transition>
         </div>
       </div>
     </main>
