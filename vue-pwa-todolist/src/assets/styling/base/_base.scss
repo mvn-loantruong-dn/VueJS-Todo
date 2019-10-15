@@ -32,7 +32,7 @@ h5 {
   @include pxRem(font-size, map-get($font-size, sm));
   @include pxRem(line-height, 20);
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 374px) {
   html {
     font-size: 12px;
   }
