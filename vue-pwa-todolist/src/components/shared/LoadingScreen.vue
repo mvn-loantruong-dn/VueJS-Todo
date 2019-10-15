@@ -7,7 +7,7 @@
     <div class="loader-5"></div>
   </div>
 </template>
-<script lang="ts">
+<script>
   export default ({
     name: 'LoadingScreen',
     props: ['isLoading'],

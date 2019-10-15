@@ -17,7 +17,7 @@
     <div class="delete-icon" @click="deletedTodo(todo)"><i class="icon-trash"></i></div>
   </div>
 </template>
-<script lang='ts'>
+<script>
 export default {
   name: 'TodoItem',
   props: ['todo'],
@@ -29,10 +29,10 @@ export default {
     };
   },
   methods: {
-    deletedTodo(todo: any) {
+    deletedTodo(todo) {
       this.$emit('removeTodo', todo);
     },
-    changedCompleted(todo: any) {
+    changedCompleted(todo) {
       this.$emit('changedCompleted', todo);
     },
   },

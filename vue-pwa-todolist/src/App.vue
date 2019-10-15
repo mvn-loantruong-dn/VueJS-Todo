@@ -10,12 +10,16 @@
 <style lang="scss">
   @import "./assets/styling/styles.scss";
 </style>
-<script lang="ts">
+<script>
   import Vue from 'vue';
   import TodoList from './components/TodoList.vue';
   import LoadingScreen from './components/shared/LoadingScreen.vue';
   export default ({
     name: 'app',
+    components: {
+      TodoList,
+      LoadingScreen,
+    },
     data() {
       return {
         isLoading: true,
@@ -25,10 +29,6 @@
       setTimeout(() => {
         this.isLoading = false;
       }, 3000);
-    },
-    components: {
-      TodoList,
-      LoadingScreen,
     },
   });
 </script>
