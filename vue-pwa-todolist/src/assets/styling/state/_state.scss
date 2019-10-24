@@ -16,3 +16,42 @@
   pointer-events: none;
   opacity: 0.5;
 }
+.text-centerd {
+  text-align: center;
+}
+$rootSize : 5;
+$sizeList : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 , 14, 15;
+
+@each $size in $sizeList {
+  $value: $rootSize * $size;
+  .pd-#{$size} {
+    @include pxRem(padding, $value);
+  }
+  .pl-#{$size} {
+    @include pxRem(padding-left, $value);
+  }
+  .pr-#{$size} {
+    @include pxRem(padding-right, $value);
+  }
+  .pt-#{$size} {
+    @include pxRem(padding-top, $value);
+  }
+  .pb-#{$size} {
+    @include pxRem(padding-bottom, $value);
+  }
+  .mg-#{$size} {
+    @include pxRem(margin, $value);
+  }
+  .mt-#{$size} {
+    @include pxRem(margin-top, $value);
+  }
+  .ml-#{$size} {
+    @include pxRem(margin-left, $value);
+  }
+  .mb-#{$size} {
+    @include pxRem(margin-bottom, $value);
+  }
+  .mr-#{$size} {
+    @include pxRem(margin-right, $value);
+  }
+}

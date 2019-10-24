@@ -2,7 +2,7 @@
   <div id="app">
     <LoadingScreen :isLoading="isLoading" />
     <div v-if="!isLoading">
-      <TodoList/>
+      <router-view />
     </div>
   </div>
 </template>
@@ -17,7 +17,6 @@
   export default ({
     name: 'app',
     components: {
-      TodoList,
       LoadingScreen,
     },
     data() {
