@@ -25,14 +25,8 @@ button, .btn {
   }
 }
 .btn-primary {
-  @include pxRem(min-width, 180);
+  @include pxRem(max-width, 180);
   background-color: map-get($color, primary);
   border: 1px solid map-get($color, primary);
-  color: map-get($color, white);
-}
-.btn-danger {
-  @include pxRem(min-width, 180);
-  background-color: map-get($color, danger);
-  border: 1px solid map-get($color, danger);
   color: map-get($color, white);
 }

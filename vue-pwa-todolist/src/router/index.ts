@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import firebase from 'firebase';
 
 Vue.use(Router);
 
@@ -12,7 +13,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/todos',
+      redirect: '/login',
+    },
+    {
+      path: '/signUp',
+      name: 'SignUp',
+      component: () => import('../components/SignUp.vue'),
     },
     {
       path: '/login',
@@ -26,5 +32,15 @@ const router = new Router({
     },
   ],
 });
-
+// router.beforeEach((to, from, next) => {
+//   const currentUser = firebase.auth().currentUser;
+//   const requiresAuth = to.matched.some((record: any) => record.meta.requiresAuth);
+//   if (requiresAuth && !currentUser) {
+//     next('login');
+//   } else if (!requiresAuth && currentUser) {
+//     next('todos');
+//   } else {
+//     next();
+//   }
+// });
 export default router;

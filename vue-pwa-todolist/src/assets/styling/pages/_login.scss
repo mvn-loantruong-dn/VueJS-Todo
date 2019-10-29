@@ -17,6 +17,7 @@
   background: map-get($color, white);
   box-shadow: #{f-pxRem(2)} #{f-pxRem(5)} #{f-pxRem(16)} #{f-pxRem(2)} rgba(16, 16, 16, 0.18);
   min-height: 72vh;
+  text-align: center;
   .login-title {
     @include pxRem(margin-bottom, 25);
     text-align: center;
@@ -39,12 +40,12 @@
   }
 }
 .social-login {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  @extend %flex-centered;
   .social-item {
     @include pxRem(width, 70);
     @include pxRem(height, 70);
+    @include pxRem(line-height, 70);
+    @include pxRem(margin, 0 20);
     border: 1px solid map-get($color, border);
     border-radius: 50%;
   }

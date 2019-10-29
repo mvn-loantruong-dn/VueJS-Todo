@@ -1,0 +1,42 @@
+.list-auth-tab {
+  @include pxRem(margin, 0 -32 30);
+  @extend %flex-between;
+  border-bottom: 1px solid map-get($color, border);
+  flex-grow: 2;
+  position: relative;
+  .auth-tab {
+    @include pxRem(padding-bottom, 25);
+    width: 50%;
+    text-align: center;
+    position: relative;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: color .5s linear;
+    &:after {
+      @include pxRem(height, 2);
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: map-get($color, primary);
+      content: "";
+      transition: left .5s ease;
+    }
+    &:last-child {
+      &:after {
+        left: -100%;
+      }
+    }
+    &:first-child {
+      &:after {
+        left: 100%;
+      }
+    }
+  }
+  .router-link-exact-active {
+    color: map-get($color, primary);
+    &:after {
+      left: 0 !important;
+    }
+  }
+}

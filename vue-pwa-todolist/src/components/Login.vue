@@ -5,37 +5,71 @@
     </div>
     <div class="container">
       <div class="login-form">
-        <form action="#" method="post">
-          <h2 class="login-title">Login Here</h2>
+        <ul class="list-auth-tab">
+          <router-link tag="li" class="auth-tab" class-active="active" to="login" exact>Login</router-link>
+          <router-link tag="li" class="auth-tab" class-active="active" to="signUp" exact>Register</router-link>
+        </ul>
+        <form @submit.prevent="login()">
           <div class="form-group">
-            <input class="form-input" type="email" placeholder="Email" name="email" required />
+            <input class="form-input" type="email" placeholder="Email" v-model="email" required />
           </div>
           <div class="form-group">
-            <input class="form-input" type="password" placeholder="Password" name="password" required />
+            <input class="form-input" type="password" placeholder="Password" v-model="password" required />
           </div>
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-primary" @click="login">Login</button>
         </form>
         <div class="login-or">
           <h5 class="pros"><span>Or</span></h5>
         </div>
         <ul class="social-login">
           <li class="social-item">
-            <a href="#"><i class="fa fa-facebook"></i></a>
+            <button @click="loginWithFacebook"><i class="fa fa-facebook"></i></button>
           </li>
           <li class="social-item">
-            <a href="#"><i class="fa fa-google"></i></a>
+            <button @click="loginWithGoogle"><i class="fa fa-google"></i></button>
           </li>
         </ul>
-
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import Vue from 'vue';
+import firebase from 'firebase';
 
 export default {
   name: 'login',
-  components: {},
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then((user) => {
+        this.$router.replace('todos');
+      }).catch((err) => {
+        alert('Opps' + err.message);
+      });
+    },
+    loginWithFacebook() {
+      const provide = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(provide).then((result) => {
+        this.$router.replace('todos');
+      }).catch((err) => {
+        alert('opps' + err.message);
+      });
+    },
+    loginWithGoogle() {
+      const provide = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provide).then((result) => {
+        this.$router.replace('todos');
+      }).catch((err) => {
+        alert('opps' + err.message);
+      });
+    },
+  },
 };
 </script>
