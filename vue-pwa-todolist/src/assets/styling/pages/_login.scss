@@ -27,7 +27,7 @@
   }
 }
 .login-or {
-  @include pxRem(margin, 32 0);
+  @include pxRem(margin, 25 0);
   border-bottom: 1px solid map-get($color, border);
   .pros {
     @include pxRem(margin-bottom, -10);

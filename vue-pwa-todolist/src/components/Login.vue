@@ -49,7 +49,7 @@ export default {
     login() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then((user) => {
-        this.$router.replace('todos');
+        this.$router.push('/todos');
       }).catch((err) => {
         alert('Opps' + err.message);
       });
@@ -57,7 +57,7 @@ export default {
     loginWithFacebook() {
       const provide = new firebase.auth.FacebookAuthProvider();
       firebase.auth().signInWithPopup(provide).then((result) => {
-        this.$router.replace('todos');
+        this.$router.push('/todos');
       }).catch((err) => {
         alert('opps' + err.message);
       });
@@ -65,7 +65,7 @@ export default {
     loginWithGoogle() {
       const provide = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provide).then((result) => {
-        this.$router.replace('todos');
+        this.$router.push('/todos');
       }).catch((err) => {
         alert('opps' + err.message);
       });

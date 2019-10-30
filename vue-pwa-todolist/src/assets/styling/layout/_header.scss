@@ -8,6 +8,9 @@
   z-index: 99;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   color: map-get($color, white);
+  a {
+    color: map-get($color, white);
+  }
   .container {
     height: 100%;
     position: relative;

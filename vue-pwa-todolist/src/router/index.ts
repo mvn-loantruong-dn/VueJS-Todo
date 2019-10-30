@@ -29,6 +29,9 @@ const router = new Router({
       path: '/todos',
       name: 'Todos',
       component: () => import('../components/TodoList.vue'),
+      meta: {
+        auth: true,
+      },
     },
   ],
 });
