@@ -1,0 +1,52 @@
+.login-header {
+  @include pxRem(margin-top, -80);
+  @include pxRem(padding, 32 16 60);
+  background: map-get($color, primary);
+  text-align: center;
+  img {
+    @include pxRem(width, 100);
+    @include pxRem(height, 100);
+    border-radius: 50%;
+    background: map-get($color, white);
+  }
+}
+.login-form {
+  @include pxRem(padding, 32);
+  @include pxRem(margin-top, -40);
+  @include pxRem(border-radius, 4);
+  background: map-get($color, white);
+  box-shadow: #{f-pxRem(2)} #{f-pxRem(5)} #{f-pxRem(16)} #{f-pxRem(2)} rgba(16, 16, 16, 0.18);
+  min-height: 72vh;
+  text-align: center;
+  .login-title {
+    @include pxRem(margin-bottom, 25);
+    text-align: center;
+  }
+  .form-group {
+    @include pxRem(margin-bottom, 25);
+  }
+}
+.login-or {
+  @include pxRem(margin, 32 0);
+  border-bottom: 1px solid map-get($color, border);
+  .pros {
+    @include pxRem(margin-bottom, -10);
+    text-align: center;
+    span {
+      @include pxRem(padding, 0 10);
+      background: map-get($color, white);
+      text-transform: uppercase;
+    }
+  }
+}
+.social-login {
+  @extend %flex-centered;
+  .social-item {
+    @include pxRem(width, 70);
+    @include pxRem(height, 70);
+    @include pxRem(line-height, 70);
+    @include pxRem(margin, 0 20);
+    border: 1px solid map-get($color, border);
+    border-radius: 50%;
+  }
+}
