@@ -29,18 +29,10 @@ const router = new Router({
       path: '/todos',
       name: 'Todos',
       component: () => import('../components/TodoList.vue'),
+      meta: {
+        auth: true,
+      },
     },
   ],
 });
-// router.beforeEach((to, from, next) => {
-//   const currentUser = firebase.auth().currentUser;
-//   const requiresAuth = to.matched.some((record: any) => record.meta.requiresAuth);
-//   if (requiresAuth && !currentUser) {
-//     next('login');
-//   } else if (!requiresAuth && currentUser) {
-//     next('todos');
-//   } else {
-//     next();
-//   }
-// });
 export default router;

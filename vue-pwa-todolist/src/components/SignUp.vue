@@ -9,7 +9,7 @@
           <router-link tag="li" class="auth-tab" class-active="active" to="login" exact>Login</router-link>
           <router-link tag="li" class="auth-tab" class-active="active" to="signUp" exact>Register</router-link>
         </ul>
-        <form @submit.prevent="signUp()">
+        <form @submit.prevent="signUp(email, password)">
           <div class="form-group">
             <input class="form-input" type="email" placeholder="Email" v-model="email" required />
           </div>
@@ -22,9 +22,11 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import Vue from 'vue';
 import firebase from 'firebase';
+import { db } from '../main';
+
 export default {
   name: 'signUp',
   data() {
@@ -35,13 +37,17 @@ export default {
   },
   methods: {
     signUp() {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      .then((user) => {
-        this.$router.replace('login');
-      }).catch((err) => {
-        alert('Opps' + err.message);
-      });
-    },
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+        (user) => {
+          db.collection('users').add({
+            email: user.user.email,
+          });
+          this.$router.push('/login');
+        }, (err) => {
+          // console.log(err, 'Error');
+        },
+      );
+     },
   },
 };
 </script>

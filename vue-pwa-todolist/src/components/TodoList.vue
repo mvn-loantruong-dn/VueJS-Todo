@@ -35,6 +35,8 @@ import Header from './layouts/Header.vue';
 import Footer from './layouts/Footer.vue';
 import TodoForm from './features/TodoForm.vue';
 import TodoItem from './features/TodoItem.vue';
+import firebase from 'firebase';
+import { db } from '../main';
 
 export default {
   name: 'TodoApp',
@@ -52,49 +54,62 @@ export default {
     };
   },
   mounted() {
-    this.todos = this.todoClone = this.getTodoList() || [];
+    this.todos = this.getTodoList() || [];
   },
   computed: {
+    getUserId() {
+      return firebase.auth().currentUser.uid;
+    },
     getActiveTodo() {
-      return this.todoClone.filter((item) => !item.completed).length;
+      return this.todos.filter((item) => !item.completed).length;
     },
     getCompletedTodo() {
-      return this.todoClone.filter((item) => item.completed).length;
+      return this.todos.filter((item) => item.completed).length;
     },
   },
   methods: {
     getTodoList() {
-      return JSON.parse(localStorage.getItem('todos'));
+      db.collection('todos').get()
+        .then((querySnapshot) => {
+          this.todos = [];
+          querySnapshot.forEach((doc) => {
+            this.todos.push({
+              id: doc.id,
+              title: doc.data().title,
+              completed: doc.data().completed,
+            });
+        });
+      });
+      return this.todos;
     },
     addTodo(todo) {
-      this.todoClone = this.getTodoList() || [];
       if (todo.trim() === '') {
         return;
       }
-      this.todoClone.unshift({
-        id: Math.random(),
+      db.collection('todos').add({
+        uid: this.getUserId,
         title: todo,
         completed: false,
+      }).then(() => {
+        this.todos = this.getTodoList();
       });
-      localStorage.setItem('todos', JSON.stringify(this.todoClone));
-      this.filterTodos(this.type);
+      this.todo = '';
     },
     removeTodo(todo) {
-      this.todoClone = this.getTodoList() || [];
-      this.todoClone = this.todoClone.filter((item) => item.id !== todo.id);
-      localStorage.setItem('todos', JSON.stringify(this.todoClone));
-      this.filterTodos(this.type);
+      db.collection('todos').doc(todo.id).delete()
+      .then(() => {
+        this.todos = this.getTodoList();
+      }).catch((err) => {
+        alert('Error removing document: ', err);
+      });
     },
     changedCompleted(todo) {
-      this.todoClone = this.getTodoList() || [];
-      this.todoClone.map((item) => {
-        if (item.id === todo.id) {
-          item.completed = !item.completed;
-          return item;
-        }
+      db.collection('todos').doc(todo.id)
+      .update({
+        completed: !todo.completed,
+      }).then(() => {
+        this.todos = this.getTodoList();
       });
-      localStorage.setItem('todos', JSON.stringify(this.todoClone));
-      this.filterTodos(this.type);
     },
     filterTodos(filter) {
       this.type = filter;
@@ -111,10 +126,15 @@ export default {
       }
     },
     removeCompleted() {
-      this.todoClone = this.getTodoList();
-      this.todoClone = this.todoClone.filter((item) => item.completed === false);
-      localStorage.setItem('todos', JSON.stringify(this.todoClone));
-      this.filterTodos('all');
+      db.collection('todos').where('completed', '==', true).get()
+      .then((querySnapshot) => {
+        const batch = db.batch();
+        querySnapshot.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+        this.todos = this.getTodoList();
+        return batch.commit();
+      });
     },
   },
 };
