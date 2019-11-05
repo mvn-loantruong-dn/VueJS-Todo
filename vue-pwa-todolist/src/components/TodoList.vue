@@ -135,11 +135,6 @@ export default {
         this.todos = this.getTodoList();
         return batch.commit();
       });
-
-      // this.todoClone = this.getTodoList();
-      // this.todoClone = this.todoClone.filter((item) => item.completed === false);
-      // localStorage.setItem('todos', JSON.stringify(this.todoClone));
-      // this.filterTodos('all');
     },
   },
 };
