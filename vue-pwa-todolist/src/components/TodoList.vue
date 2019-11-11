@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     getTodoList() {
-      db.collection('todos').get()
+      db.collection('todos').where('uid', '==', this.getUserId).get()
         .then((querySnapshot) => {
           this.todos = [];
           querySnapshot.forEach((doc) => {
