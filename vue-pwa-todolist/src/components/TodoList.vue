@@ -49,17 +49,21 @@ export default {
   data() {
     return {
       todos: [],
-      todoClone: [],
+      userId: null,
       type: 'all',
     };
   },
-  mounted() {
-    this.todos = this.getTodoList() || [];
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push('/login');
+      } else {
+        this.userId = firebase.auth().currentUser.uid;
+        this.getTodoList() || []
+      }
+    })
   },
   computed: {
-    getUserId() {
-      return firebase.auth().currentUser.uid;
-    },
     getActiveTodo() {
       return this.todos.filter((item) => !item.completed).length;
     },
@@ -69,7 +73,7 @@ export default {
   },
   methods: {
     getTodoList() {
-      db.collection('todos').where('uid', '==', this.getUserId).get()
+      db.collection('todos').where('uid', '==', this.userId).get()
         .then((querySnapshot) => {
           this.todos = [];
           querySnapshot.forEach((doc) => {
@@ -87,7 +91,7 @@ export default {
         return;
       }
       db.collection('todos').add({
-        uid: this.getUserId,
+        uid: this.userId,
         title: todo,
         completed: false,
       }).then(() => {
@@ -113,16 +117,16 @@ export default {
     },
     filterTodos(filter) {
       this.type = filter;
-      this.todoClone = this.getTodoList() || [];
+      this.todos = this.getTodoList() || [];
       switch (filter) {
         case 'active':
-          this.todos = this.todoClone.filter((item) => item.completed === false);
+          this.todos = this.todos.filter((item) => item.completed === false);
           break;
         case 'complete':
-          this.todos = this.todoClone.filter((item) => item.completed === true);
+          this.todos = this.todos.filter((item) => item.completed === true);
           break;
         default:
-          this.todos = this.todoClone.map((item) => item);
+          this.todos = this.todos.map((item) => item);
       }
     },
     removeCompleted() {
