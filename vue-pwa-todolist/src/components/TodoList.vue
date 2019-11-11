@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       todos: [],
+      todoClone: [],
       userId: null,
       type: 'all',
     };
@@ -59,7 +60,7 @@ export default {
         this.$router.push('/login');
       } else {
         this.userId = firebase.auth().currentUser.uid;
-        this.getTodoList() || []
+        this.todos = this.getTodoList() || [];
       }
     })
   },
@@ -117,16 +118,16 @@ export default {
     },
     filterTodos(filter) {
       this.type = filter;
-      this.todos = this.getTodoList() || [];
+      this.todoClone = this.getTodoList() || [];
       switch (filter) {
         case 'active':
-          this.todos = this.todos.filter((item) => item.completed === false);
+          this.todos = this.todoClone.filter((item) => item.completed === false);
           break;
         case 'complete':
-          this.todos = this.todos.filter((item) => item.completed === true);
+          this.todos = this.todoClone.filter((item) => item.completed === true);
           break;
         default:
-          this.todos = this.todos.map((item) => item);
+          this.todos = this.todoClone.map((item) => item);
       }
     },
     removeCompleted() {
@@ -136,7 +137,7 @@ export default {
         querySnapshot.forEach((doc) => {
           batch.delete(doc.ref);
         });
-        this.todos = this.getTodoList();
+        this.filterTodos('all');
         return batch.commit();
       });
     },
