@@ -4,25 +4,28 @@
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
-        <div class="todo-list-section">
-          <transition name="fade">
-            <div class="no-task" v-if="!todos.length">
-              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
-              <h3 class="font-bold">No tasks</h3>
-              <h5>You have no task</h5>
-            </div>
-          </transition>
-          <transition-group name="fade">
-            <todo-item
-              v-for="(todo, index) in todos"
-              :key="todo.id"
-              :todo="todo"
-              :index="index"
-              :completed="todo.completed"
-              @removeTodo="removeTodo"
-              @changedCompleted="changedCompleted">
-            </todo-item>
-          </transition-group>
+          <LoadingScreen :isLoading="isLoading" />
+          <div v-if="!isLoading">
+            <div class="todo-list-section">
+            <transition name="fade">
+              <div class="no-task" v-if="!todos.length">
+                <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
+                <h3 class="font-bold">No tasks</h3>
+                <h5>You have no task</h5>
+              </div>
+            </transition>
+            <transition-group name="fade">
+              <todo-item
+                v-for="(todo, index) in todos"
+                :key="todo.id"
+                :todo="todo"
+                :index="index"
+                :completed="todo.completed"
+                @removeTodo="removeTodo"
+                @changedCompleted="changedCompleted">
+              </todo-item>
+            </transition-group>
+          </div>
         </div>
       </div>
     </main>
@@ -37,6 +40,7 @@ import TodoForm from './features/TodoForm.vue';
 import TodoItem from './features/TodoItem.vue';
 import firebase from 'firebase';
 import { db } from '../main';
+import LoadingScreen from '../components/shared/LoadingScreen.vue'
 
 export default {
   name: 'TodoApp',
@@ -45,6 +49,7 @@ export default {
     Footer,
     TodoForm,
     TodoItem,
+    LoadingScreen
   },
   data() {
     return {
@@ -52,6 +57,7 @@ export default {
       todoClone: [],
       userId: null,
       type: 'all',
+      isLoading: true,
     };
   },
   beforeCreate() {
@@ -83,7 +89,8 @@ export default {
               title: doc.data().title,
               completed: doc.data().completed,
             });
-        });
+          });
+        this.isLoading = false;
       });
       return this.todos;
     },
