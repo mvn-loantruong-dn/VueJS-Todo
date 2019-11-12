@@ -90,7 +90,9 @@ export default {
               completed: doc.data().completed,
             });
           });
-        this.isLoading = false;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 200);
       });
       return this.todos;
     },
