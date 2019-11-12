@@ -4,7 +4,7 @@
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
-          <LoadingScreen :isLoading="isLoading" />
+          <InlineLoading :loading="isLoading" />
           <div v-if="!isLoading">
             <div class="todo-list-section">
             <transition name="fade">
@@ -40,7 +40,7 @@ import TodoForm from './features/TodoForm.vue';
 import TodoItem from './features/TodoItem.vue';
 import firebase from 'firebase';
 import { db } from '../main';
-import LoadingScreen from '../components/shared/LoadingScreen.vue'
+import InlineLoading from '../components/shared/InlineLoading.vue'
 
 export default {
   name: 'TodoApp',
@@ -49,7 +49,7 @@ export default {
     Footer,
     TodoForm,
     TodoItem,
-    LoadingScreen
+    InlineLoading
   },
   data() {
     return {
