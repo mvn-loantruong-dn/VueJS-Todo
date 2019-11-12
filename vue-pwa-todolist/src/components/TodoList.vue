@@ -115,14 +115,38 @@ export default {
       this.type = filter;
       this.todoClone = this.getTodoList() || [];
       switch (filter) {
-        case 'active':
-          this.todos = this.todoClone.filter((item) => item.completed === false);
+        case "active":
+          db.collection("todos")
+            .where("completed", "==", false)
+            .get()
+            .then(querySnapshot => {
+              this.todos = [];
+              querySnapshot.forEach(doc => {
+                this.todos.push({
+                  id: doc.id,
+                  title: doc.data().title,
+                  completed: doc.data().completed
+                });
+              });
+            });
           break;
-        case 'complete':
-          this.todos = this.todoClone.filter((item) => item.completed === true);
+        case "complete":
+          db.collection("todos")
+            .where("completed", "==", true)
+            .get()
+            .then(querySnapshot => {
+              this.todos = [];
+              querySnapshot.forEach(doc => {
+                this.todos.push({
+                  id: doc.id,
+                  title: doc.data().title,
+                  completed: doc.data().completed
+                });
+              });
+            });
           break;
         default:
-          this.todos = this.todoClone.map((item) => item);
+          this.todos = this.getTodoList();
       }
     },
     removeCompleted() {
