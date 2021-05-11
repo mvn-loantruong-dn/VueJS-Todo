@@ -4,25 +4,28 @@
     <main class="page-main">
       <div class="container">
         <todo-form @addTodo="addTodo"></todo-form>
-        <div class="todo-list-section">
-          <transition name="fade">
-            <div class="no-task" v-if="!todos.length">
-              <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
-              <h3 class="font-bold">No tasks</h3>
-              <h5>You have no task</h5>
-            </div>
-          </transition>
-          <transition-group name="fade">
-            <todo-item
-              v-for="(todo, index) in todos"
-              :key="todo.id"
-              :todo="todo"
-              :index="index"
-              :completed="todo.completed"
-              @removeTodo="removeTodo"
-              @changedCompleted="changedCompleted">
-            </todo-item>
-          </transition-group>
+          <InlineLoading :loading="isLoading" />
+          <div v-if="!isLoading">
+            <div class="todo-list-section">
+            <transition name="fade">
+              <div class="no-task" v-if="!todos.length">
+                <img class="img-covered" src="@/assets/img/no-task.png" alt="No task">
+                <h3 class="font-bold">No tasks</h3>
+                <h5>You have no task</h5>
+              </div>
+            </transition>
+            <transition-group name="fade">
+              <todo-item
+                v-for="(todo, index) in todos"
+                :key="todo.id"
+                :todo="todo"
+                :index="index"
+                :completed="todo.completed"
+                @removeTodo="removeTodo"
+                @changedCompleted="changedCompleted">
+              </todo-item>
+            </transition-group>
+          </div>
         </div>
       </div>
     </main>
@@ -37,6 +40,7 @@ import TodoForm from './features/TodoForm.vue';
 import TodoItem from './features/TodoItem.vue';
 import firebase from 'firebase';
 import { db } from '../main';
+import InlineLoading from '../components/shared/InlineLoading.vue'
 
 export default {
   name: 'TodoApp',
@@ -45,21 +49,28 @@ export default {
     Footer,
     TodoForm,
     TodoItem,
+    InlineLoading
   },
   data() {
     return {
       todos: [],
       todoClone: [],
+      userId: null,
       type: 'all',
+      isLoading: true,
     };
   },
-  mounted() {
-    this.todos = this.getTodoList() || [];
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push('/login');
+      } else {
+        this.userId = firebase.auth().currentUser.uid;
+        this.todos = this.getTodoList() || [];
+      }
+    })
   },
   computed: {
-    getUserId() {
-      return firebase.auth().currentUser.uid;
-    },
     getActiveTodo() {
       return this.todos.filter((item) => !item.completed).length;
     },
@@ -69,7 +80,7 @@ export default {
   },
   methods: {
     getTodoList() {
-      db.collection('todos').get()
+      db.collection('todos').where('uid', '==', this.userId).get()
         .then((querySnapshot) => {
           this.todos = [];
           querySnapshot.forEach((doc) => {
@@ -78,7 +89,10 @@ export default {
               title: doc.data().title,
               completed: doc.data().completed,
             });
-        });
+          });
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 200);
       });
       return this.todos;
     },
@@ -87,7 +101,7 @@ export default {
         return;
       }
       db.collection('todos').add({
-        uid: this.getUserId,
+        uid: this.userId,
         title: todo,
         completed: false,
       }).then(() => {
@@ -132,7 +146,7 @@ export default {
         querySnapshot.forEach((doc) => {
           batch.delete(doc.ref);
         });
-        this.todos = this.getTodoList();
+        this.filterTodos('all');
         return batch.commit();
       });
     },
